@@ -1,5 +1,10 @@
+<!doctype html>
+<html lang="en">
 <head>
-   <meta name="google-site-verification" content="cudBcZmNQs_vT7Wx6tqFFyicXLYR7W5rSCBzn8JQ-Zk" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Mudasir Zaman: web developer and AI enthusiast. Portfolio, skills, services and projects.">
+<meta name="theme-color" content="#f4f3ff">
 <title>Mudasir Zaman Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +56,9 @@
 }
 
 * { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { overflow-x: clip; }
+img, video, canvas { max-width: 100%; }
 html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
 body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 17px; line-height: 1.65; margin: 0; }
 html.theme-switching *, html.theme-switching *::before, html.theme-switching *::after { transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, fill 0.4s ease, stroke 0.4s ease !important; }
@@ -183,7 +191,7 @@ h2 { font-family: var(--font-display); font-size: clamp(1.9rem, 4.4vw, 2.9rem); 
 .service li { display: flex; gap: 0.6rem; align-items: center; }
 .service li::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--cyan); flex: none; }
 
-.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 1.5rem; align-items: stretch; }
+.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1.5rem; align-items: stretch; }
 .project { overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
 .shot-bar { display: flex; align-items: center; gap: 0.4rem; padding: 0.7rem 1rem; border-bottom: 1px solid var(--line); background: var(--bg-2); font-size: 0.74rem; color: var(--muted); }
 .shot-bar i { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--line); display: inline-block; flex: none; }
@@ -247,20 +255,33 @@ footer { border-top: 1px solid var(--line); padding-block: 2.5rem; background: v
 @media (max-width: 47.99rem) {
   .menu-btn { display: inline-flex; }
   .mainnav { position: static; }
-  .links { display: none; position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; gap: 0; background: var(--solid); border-bottom: 1px solid var(--line); padding: 0.5rem 1rem 1rem; box-shadow: var(--shadow); font-size: 1rem; }
-  .links.open { display: flex; }
+  .links { display: flex; flex-direction: column; gap: 0; position: absolute; left: 0; right: 0; top: 100%; max-height: calc(100vh - 4.5rem); max-height: calc(100dvh - 4.5rem); overflow-y: auto; background: var(--solid); border-bottom: 1px solid var(--line); padding: 0.5rem 1rem 1rem; box-shadow: var(--shadow); font-size: 1rem;
+    visibility: hidden; opacity: 0; transform: translateY(-10px); pointer-events: none; transition: opacity 0.3s var(--ease), transform 0.35s var(--ease), visibility 0s 0.35s; }
+  .links.open { visibility: visible; opacity: 1; transform: none; pointer-events: auto; transition: opacity 0.3s var(--ease), transform 0.35s var(--ease); }
+  .links li { opacity: 0; transform: translateY(-6px); transition: opacity 0.3s var(--ease), transform 0.35s var(--ease); }
+  .links.open li { opacity: 1; transform: none; }
+  .links.open li:nth-child(2) { transition-delay: 0.03s; } .links.open li:nth-child(3) { transition-delay: 0.06s; } .links.open li:nth-child(4) { transition-delay: 0.09s; } .links.open li:nth-child(5) { transition-delay: 0.12s; } .links.open li:nth-child(6) { transition-delay: 0.15s; } .links.open li:nth-child(7) { transition-delay: 0.18s; } .links.open li:nth-child(8) { transition-delay: 0.21s; }
   .links a { padding-block: 0.9rem; border-top: 1px solid var(--line); }
   .links li:first-child a { border-top: 0; }
   .indicator { display: none; }
+  .nav { gap: 0.5rem; }
+  .nav-actions .btn.sm { padding: 0.55rem 0.9rem; }
 }
 @media (max-width: 30rem) { .panel .cta .btn { width: 100%; } }
 @media (max-width: 40rem) {
-  .hire-desktop { display: none; }
+  #theme-btn { display: none; }
   .only-mobile { display: block; }
-  .links .only-mobile a { border-top: 1px solid var(--line); margin-top: 0.4rem; padding-top: 1rem; }
-  .links .only-mobile .btn { display: flex; width: 100%; margin-top: 0.8rem; color: #fff; }
-  .highlights { grid-template-columns: 1fr 1fr; }
-  .nav .brand span.word { font-size: 1rem; }
+  .links .drawer-theme { display: flex; align-items: center; gap: 0.7rem; width: 100%; padding: 0.9rem 0 0.2rem; margin-top: 0.2rem; border: 0; border-top: 1px solid var(--line); background: none; color: var(--muted); font: 600 1rem var(--font-display); cursor: pointer; }
+  .links .drawer-theme:hover { color: var(--fg); }
+  .highlights { grid-template-columns: 1fr; }
+  .nav .brand span.word { font-size: 0.98rem; }
+  .badge { font-size: 0.8rem; padding: 0.5rem 0.85rem; }
+  .hero { gap: 2.5rem; padding-block: 2rem 3rem; }
+  .projects { grid-template-columns: 1fr; }
+  .project-body, .service, .skill-card { padding: 1.4rem; }
+  .panel { border-radius: 26px; }
+}
+@media (max-width: 21rem) { .nav .brand span.word { display: none; } }
 }
 /* Hire Me modal */
 html.modal-open { overflow: hidden; }
@@ -313,7 +334,13 @@ html.modal-open { overflow: hidden; }
 .bot-say span::after { content: ""; position: absolute; left: calc(50% - var(--sx, 0px)); bottom: -6px; width: 10px; height: 10px; margin-left: -5px; background: var(--solid); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transform: rotate(45deg); }
 .bot-say.pop span { animation: botPop 0.45s var(--ease); }
 @keyframes botPop { from { opacity: 0; transform: translateY(6px) scale(0.85); } to { opacity: 1; transform: none; } }
-@media (max-width: 40rem) { .bot { transform-origin: 100% 100%; scale: 0.78; } .bot-say span { font-size: 0.74rem; } }
+/* Docked mode (phones, touch, or when mouse tracking is off): fixed bottom-right above the back-to-top button; the bubble shows briefly on each section. */
+html.bot-dock .bot { left: auto; top: auto; right: 12px; bottom: 76px; margin: 0; transform: none !important; scale: 0.72; transform-origin: 100% 100%; }
+html.bot-dock .bot-say { left: auto; right: 0; transform: none; transform-origin: 100% 100%; max-width: min(190px, calc(100vw - 110px)); transition: opacity 0.35s var(--ease); }
+html.bot-dock .bot-say span { font-size: 0.82rem; text-align: left; }
+html.bot-dock .bot-say span::after { left: auto; right: 38px; margin-left: 0; }
+.bot-say.say-hide { opacity: 0; }
+@media (max-width: 40rem) { .totop { right: 12px; bottom: 12px; } }
 @media (prefers-reduced-motion: reduce) { .bot-sparks { display: none; } }
 /* Futuristic hover FX: scanner line + target brackets on the portrait and screenshots, target brackets and glow on cards, shimmer and press states on buttons. */
 .card { position: relative; }
@@ -423,7 +450,8 @@ document.documentElement.classList.add('js');
   document.documentElement.setAttribute('data-theme', t);
 })();
 </script>
-
+</head>
+<body>
 <!-- EDIT GUIDE: change text directly below. Email: search "mudasirzaman.devofficial@gmail.com".
      WhatsApp: add <a class="btn grad" href="https://wa.me/YOUR_NUMBER"> in the contact panel buttons.
      New project: copy the <article class="card project"> block. Source code: replace the "Source Code" placeholder span with a real link. -->
@@ -473,7 +501,7 @@ document.documentElement.classList.add('js');
         <li><a href="#projects">Projects</a></li>
         <li><a href="#process">Process</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li class="only-mobile"><a class="btn grad" href="#contact">Hire Me</a></li>
+        <li class="only-mobile"><button type="button" class="drawer-theme" id="drawer-theme"><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg><span id="drawer-theme-label">Dark theme</span></button></li>
       </ul>
       <span class="indicator" id="indicator" aria-hidden="true"></span>
     </nav>
@@ -917,6 +945,17 @@ document.documentElement.classList.add('js');
   mbtn.addEventListener('click', function () { setMenu(!menu.classList.contains('open')); });
   menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+  document.addEventListener('click', function (e) { if (menu.classList.contains('open') && !e.target.closest('#menu, #menu-btn')) setMenu(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 768) setMenu(false); }, { passive: true });
+  /* theme item inside the drawer (the top-bar toggle is hidden on phones) */
+  var dth = document.getElementById('drawer-theme'), dthl = document.getElementById('drawer-theme-label');
+  function syncDrawerTheme() {
+    if (!dth) return;
+    var dark = root.getAttribute('data-theme') === 'dark';
+    dthl.textContent = dark ? 'Light theme' : 'Dark theme';
+    dth.querySelector('use').setAttribute('href', dark ? '#i-sun' : '#i-moon');
+  }
+  if (dth) { dth.addEventListener('click', function () { tbtn.click(); setTimeout(syncDrawerTheme, 0); }); syncDrawerTheme(); }
 
   /* Active section indicator */
   var links = [].slice.call(document.querySelectorAll('.links a:not(.btn)'));
@@ -1074,6 +1113,8 @@ document.documentElement.classList.add('js');
   var say = document.getElementById('bot-say'), text = document.getElementById('bot-text');
   var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)');
   var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+  var narrow = window.matchMedia && window.matchMedia('(max-width: 48rem)');
+  var rootEl = document.documentElement, hideT = 0;
 
   /* EDIT: the line the robot says for each section (keys are section ids). */
   var LINES = {
@@ -1145,7 +1186,13 @@ document.documentElement.classList.add('js');
     restSpot();
     go();
   }
-  function evaluate() { if (fine && calm && fine.matches && !calm.matches) enable(); else disable(); }
+  function docked() { return !(fine && calm && fine.matches && !calm.matches) || !!(narrow && narrow.matches); }
+  function evaluate() {
+    var d = docked();
+    rootEl.classList.toggle('bot-dock', d);
+    if (d) { clearInterval(cycle); cycle = 0; }
+    if (!d) enable(); else disable();
+  }
 
   /* speech bubble */
   var cycle = 0, step = 0;
@@ -1153,7 +1200,7 @@ document.documentElement.classList.add('js');
     text.textContent = line;
     bubbleHalf = Math.min(105, Math.max(40, text.offsetWidth / 2));
     lastSx = null; place();
-    say.classList.remove('pop'); void say.offsetWidth; say.classList.add('pop');
+    say.classList.remove('say-hide'); say.classList.remove('pop'); void say.offsetWidth; say.classList.add('pop');
   }
   function speak(id) {
     var l = LINES[id];
@@ -1163,7 +1210,10 @@ document.documentElement.classList.add('js');
     var list = Array.isArray(l) ? l : [l];
     show(list[0]);
     bot.classList.remove('wave'); void bot.offsetWidth; bot.classList.add('wave');
-    if (list.length > 1 && !(calm && calm.matches)) {
+    clearTimeout(hideT);
+    if (rootEl.classList.contains('bot-dock')) {
+      hideT = setTimeout(function () { say.classList.add('say-hide'); }, 3200);
+    } else if (list.length > 1 && !(calm && calm.matches)) {
       cycle = setInterval(function () { step = (step + 1) % list.length; show(list[step]); }, 3200);
     }
   }
@@ -1176,6 +1226,7 @@ document.documentElement.classList.add('js');
 
   /* start in the corner, fading in */
   restSpot(); bx = tx; by = ty;
+  rootEl.classList.toggle('bot-dock', docked());
   place();
   speak('home');
   requestAnimationFrame(function () { bot.classList.add('bot-on'); placed = true; });
@@ -1183,6 +1234,7 @@ document.documentElement.classList.add('js');
   evaluate();
   if (fine && fine.addEventListener) { fine.addEventListener('change', evaluate); }
   if (calm && calm.addEventListener) { calm.addEventListener('change', evaluate); }
+  if (narrow && narrow.addEventListener) { narrow.addEventListener('change', evaluate); }
 })();
 </script>
 <script>
@@ -1346,3 +1398,5 @@ document.documentElement.classList.add('js');
   if (fine.addEventListener) { fine.addEventListener('change', evaluate); calm.addEventListener('change', evaluate); }
 })();
 </script>
+</body>
+</html>
