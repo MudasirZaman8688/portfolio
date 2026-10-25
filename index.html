@@ -1224,6 +1224,30 @@ document.documentElement.classList.add('js');
     Object.keys(LINES).forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
   }
 
+  /* Scroll float: the robot is dragged along by the scroll (drifts against it, leans and sways), then eases back to its place. Individual
+     translate/rotate properties are used so they never clash with the follow/dock transforms. Skipped for reduced motion. */
+  var lastY = window.pageYOffset || 0, push = 0, lean = 0, sRaf = 0;
+  function sFrame() {
+    sRaf = 0;
+    push *= 0.9; lean *= 0.9;
+    var y = window.pageYOffset || 0;
+    var amp = Math.min(1, Math.abs(push) / 18);
+    var sway = Math.sin(y / 120) * 7 * amp;
+    var t = sway.toFixed(1) + 'px ' + push.toFixed(1) + 'px';
+    tilt.style.translate = t; say.style.translate = t;
+    tilt.style.rotate = lean.toFixed(1) + 'deg';
+    if (Math.abs(push) > 0.2 || Math.abs(lean) > 0.2) sRaf = requestAnimationFrame(sFrame);
+    else { tilt.style.translate = ''; say.style.translate = ''; tilt.style.rotate = ''; }
+  }
+  window.addEventListener('scroll', function () {
+    if (calm && calm.matches) return;
+    var y = window.pageYOffset || 0, d = y - lastY; lastY = y;
+    if (!d) return;
+    push = clamp(push - d * 0.9, -48, 48);
+    lean = clamp(lean + d * 0.35, -14, 14);
+    if (!sRaf) sRaf = requestAnimationFrame(sFrame);
+  }, { passive: true });
+
   /* start in the corner, fading in */
   restSpot(); bx = tx; by = ty;
   rootEl.classList.toggle('bot-dock', docked());
